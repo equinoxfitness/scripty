@@ -17,7 +17,7 @@ Scripty
     :target: https://github.com/equinoxfitness/datacoco-email_tools/blob/master/CODE_OF_CONDUCT.rst
     :alt: Code of Conduct
 
-MSSQL Runner provides a way of running MSSQL script with a set of parameters for ETL usage
+Scripty is a simple script runner to execute ELT and load tasks.
 
 Installation
 ------------
@@ -33,7 +33,7 @@ Scripty requires Python 3.6+
 Quickstart
 ----------
 
-Redshift does not have stored procedures so we will use a simple script runner to execute our ELT and load tasks.
+Redshift does not have stored procedures so we will use Scripty to execute our ELT and load tasks.
 
 Both script runner and SQLWorkbenchJ will use the same notation for variable expansion: `$[?variable]`.  This string will be replaced at runtime by the appropriate variable:
 
