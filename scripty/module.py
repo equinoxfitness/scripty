@@ -4,7 +4,7 @@ from datacoco_core.logger import Logger
 from datacoco_batch import Batch
 from datacoco_db.pg_tools import PGInteraction
 from pathlib import Path
-from script_runner.config_wrapper import ConfigWrapper
+from scripty.config_wrapper import ConfigWrapper
 class ScriptRunner:
     """
     generic class for execution of a parameterized script in postgres or redshift
