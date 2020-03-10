@@ -172,7 +172,7 @@ if __name__ == "__main__":
 
     (db_name, host, user, password, port) = ConfigWrapper.process_config(args)
 
-    ScriptRunner(db_name, host, user, password, port).run_script(
+    ScriptRunner(db_name=db_name, host=host, user=user, password=password, port=port).run_script(
         args.script,
         args.from_date,
         args.to_date,

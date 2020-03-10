@@ -20,7 +20,7 @@ class ConfigWrapper:
         parser.add_argument(
             "-c",
             "--config",
-            default="secret_manager",
+            default="core",
             help="""whether to use secret_manager or datacoco_core to retrieve secrets""",
             choices=['secret_manager', 'core']
         )
@@ -35,8 +35,8 @@ class ConfigWrapper:
             conf = config()
 
         db_name = conf[args.database]["db_name"]
-        host = conf[args.database]["user"]
-        user = conf[args.database]["host"]
+        host = conf[args.database]["host"]
+        user = conf[args.database]["user"]
         password = conf[args.database]["password"]
         port = conf[args.database]["port"]
 
