@@ -153,10 +153,7 @@ if __name__ == "__main__":
         default="cosmo",
     )
 
-    today = datetime.date.today()
-    yesterday = today - datetime.timedelta(days=1)
-
-    parser.add_argument("-f", "--from_date", help="""from_date""", default=str(yesterday))
+    parser.add_argument("-f", "--from_date", help="""from_date""", default=None)
     parser.add_argument("-t", "--to_date", help="""to_date""", default=None)
     parser.add_argument("-b", "--batch_id", help="""enter batch id """, default=None)
     parser.add_argument(
