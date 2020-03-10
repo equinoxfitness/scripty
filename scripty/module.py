@@ -7,9 +7,8 @@ from pathlib import Path
 from scripty.config_wrapper import ConfigWrapper
 class ScriptRunner:
     """
-    generic class for execution of a parameterized script in postgres or redshift
+    Generic class for execution of a parameterized script in postgres or redshift.
     """
-
     def __init__(self, db_name, host, user, password, port):
 
         self.pg = PGInteraction(
@@ -46,7 +45,7 @@ class ScriptRunner:
         batchy_job=None,
     ):
         """
-        method for expanding and running sql statements
+        Method for expanding and running sql statements
         :param script:
         :param from_date:
         :param to_date:
@@ -90,7 +89,7 @@ class ScriptRunner:
                 (k.strip(), v.strip())
                 for k, v in (item.split("-") for item in params.split(","))
             )
-        except:
+        except Exception as e:
             logger.l("issue parsing params")
 
         if type(params) == dict:

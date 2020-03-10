@@ -1,17 +1,16 @@
-'''
-Wrapper file for config management for script_runner
-'''
 from datacoco_core.config import config
 from datacoco_secretsmanager import SecretsManager
 
+'''
+Wrapper file for config management for script_runner.
+'''
 
 class ConfigWrapper:
 
     @staticmethod
     def sm_conf(project_name='maximilian', team_name='data'):
         """
-        simple config wrapper for using secrets manager
-        :return:
+        Simple config wrapper for using secrets manager.
         """
         c = SecretsManager().get_config(project_name, team_name)
         return c
