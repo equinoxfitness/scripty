@@ -1,6 +1,5 @@
 import sys, os
 import argparse
-import datetime
 from datacoco_core.logger import Logger
 from datacoco_batch import Batch
 from datacoco_db.pg_tools import PGInteraction
@@ -169,7 +168,11 @@ if __name__ == "__main__":
 
     (db_name, host, user, password, port) = ConfigWrapper.process_config(args)
 
-    ScriptRunner(db_name=db_name, host=host, user=user, password=password, port=port).run_script(
+    ScriptRunner(db_name,
+                 host,
+                 user,
+                 password,
+                 port).run_script(
         args.script,
         args.from_date,
         args.to_date,
