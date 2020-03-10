@@ -75,11 +75,11 @@ Here is a sample SQL Script.  If run in SQL workbench you will be prompted for v
 
 In the script runner you would use the following params to substitute that value.  It is assumed these params would be dynamically substituted by the calling script or informatica process:
 
-``python -m script_runner.module -s "sample/script_runner_test.sql" -p "var1-cat, var2-dog" -f '1980-12-31 07:00' -b '9999'``
+``python -m scripty.module -s "sample/scripty_test.sql" -p "var1-cat, var2-dog" -f '1980-12-31 07:00' -b '9999'``
 
 Assuming you had workflow config in batchy under wf3, you could also use this script:
 
-``python -m  script_runner.module -s sample/script_runner_test.sql -wf wf3``
+``python -m scripty.module -s sample/scripty_test.sql -wf wf3``
 
 
 Development
