@@ -31,21 +31,21 @@ pipeline{
                 // sh "coverage xml -i"
                 // sh "python-codacy-coverage -r coverage.xml"
             }
-            post {
-                always {
-                    // step([$class: 'CoberturaPublisher',
-                    //                autoUpdateHealth: false,
-                    //                autoUpdateStability: false,
-                    //                coberturaReportFile: 'coverage.xml',
-                    //                failNoReports: false,
-                    //                failUnhealthy: false,
-                    //                failUnstable: false,
-                    //                maxNumberOfBuilds: 10,
-                    //                onlyStable: false,
-                    //                sourceEncoding: 'ASCII',
-                    //                zoomCoverageChart: false])
-                }
-            }
+            // post {
+            //     always {
+            //         step([$class: 'CoberturaPublisher',
+            //                        autoUpdateHealth: false,
+            //                        autoUpdateStability: false,
+            //                        coberturaReportFile: 'coverage.xml',
+            //                        failNoReports: false,
+            //                        failUnhealthy: false,
+            //                        failUnstable: false,
+            //                        maxNumberOfBuilds: 10,
+            //                        onlyStable: false,
+            //                        sourceEncoding: 'ASCII',
+            //                        zoomCoverageChart: false])
+            //     }
+            // }
         }
         stage('Deploy to Test Pypi Env') {
             when {
