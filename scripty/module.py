@@ -1,4 +1,5 @@
-import sys, os
+import sys
+import os
 import argparse
 from datacoco_core.logger import Logger
 from datacoco_batch import Batch
@@ -6,10 +7,13 @@ from datacoco_db.pg_tools import PGInteraction
 from pathlib import Path
 from scripty.config_wrapper import ConfigWrapper
 
+
 class ScriptRunner:
     """
-    Generic class for execution of a parameterized script in postgres or redshift.
+    Generic class for execution of a parameterized script
+    in postgres or redshift.
     """
+
     def __init__(self, db_name, host, user, password, port):
         self.pg = PGInteraction(
             dbname=db_name,
@@ -68,7 +72,8 @@ class ScriptRunner:
             logger.l(e)
             raise RuntimeError(e)
 
-        # first we retrive params  we will load these into dict first, any additional params specified will override
+        # first we retrive params  we will load these into dict first,
+        # any additional params specified will override
         if batchy_job:
             wf = batchy_job.split(".")[0]
             try:
@@ -77,12 +82,18 @@ class ScriptRunner:
                     if len(batchy_job.split(".")[1]) > 0
                     else "global"
                 )
-            except:
+            except Exception as e:
+                logger.l(e)
                 job = "global"
-            batchy_params = Batch(wf, server=self.conf['batchy']['server'], port=self.conf['batchy']['port']).get_status()
+            batchy_params = Batch(
+                wf,
+                server=self.conf["batchy"]["server"],
+                port=self.conf["batchy"]["port"],
+            ).get_status()
             paramset.update(batchy_params[job])
 
-        # next we apply custom params and special metadata fields, again this will overrite batchy params if specified
+        # next we apply custom params and special metadata fields,
+        # again this will overrite batchy params if specified
         # convert string params to dict
         try:
             params = dict(
@@ -90,9 +101,9 @@ class ScriptRunner:
                 for k, v in (item.split("-") for item in params.split(","))
             )
         except Exception as e:
-            logger.l("issue parsing params")
+            logger.l(f"issue parsing params: {e}")
 
-        if type(params) == dict:
+        if isinstance(params, dict):
             paramset.update(params)
 
         if from_date:
@@ -116,7 +127,9 @@ class ScriptRunner:
 
         raw_sql = open(script).read()
         sql = self.expand_params(raw_sql, paramset)
-        sql_message = "\n\n--sql script start:\n" + sql + "\n--sql script end\n\n"
+        sql_message = (
+            "\n\n--sql script start:\n" + sql + "\n--sql script end\n\n"
+        )
         logger.l(sql_message)
 
         self.pg.batch_open()
@@ -135,15 +148,17 @@ class ScriptRunner:
 if __name__ == "__main__":
     # argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("-s", "--script", help="""enter a path to your script """)
-    # rundeck doesn't like -p '{"param1":"val1", "param2":"val2"}', changed params to string
-    # parser.add_argument('-p', '--parameters', type=json.loads,default='{"none":"none"}',
-    #                    help="""additional params to be substituted in script, example: -p '{"param1":"val1", "param2":"val2"}'""")
+    parser.add_argument(
+        "-s", "--script", help="""enter a path to your script """
+    )
     parser.add_argument(
         "-p",
         "--parameters",  # type=json.loads, default='{"none":"none"}',
         default="none-none",
-        help="""additional params to be substituted in script, example: -p param1-val1, param2-val2 """,
+        help="""
+            additional params to be substituted in script,
+            example: -p param1-val1, param2-val2
+            """,
     )
     parser.add_argument(
         "-d",
@@ -152,9 +167,13 @@ if __name__ == "__main__":
         default="cosmo",
     )
 
-    parser.add_argument("-f", "--from_date", help="""from_date""", default=None)
+    parser.add_argument(
+        "-f", "--from_date", help="""from_date""", default=None
+    )
     parser.add_argument("-t", "--to_date", help="""to_date""", default=None)
-    parser.add_argument("-b", "--batch_id", help="""enter batch id """, default=None)
+    parser.add_argument(
+        "-b", "--batch_id", help="""enter batch id """, default=None
+    )
     parser.add_argument(
         "-wf",
         "--batchy_job",
@@ -168,11 +187,7 @@ if __name__ == "__main__":
 
     (db_name, host, user, password, port) = ConfigWrapper.process_config(args)
 
-    ScriptRunner(db_name,
-                 host,
-                 user,
-                 password,
-                 port).run_script(
+    ScriptRunner(db_name, host, user, password, port).run_script(
         args.script,
         args.from_date,
         args.to_date,

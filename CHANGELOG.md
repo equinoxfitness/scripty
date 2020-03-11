@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [0.1.0] - 2020-03-10
+## [0.1.0] - 2020-03-11
 ### Changed
+    - Initial project setup
     - Config Management
     - Batch Control
+
+[0.1.0]: https://github.com/equinoxfitness/scripty/releases/tag/v0.1.0
