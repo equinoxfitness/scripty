@@ -1,14 +1,14 @@
 from datacoco_core.config import config
 from datacoco_secretsmanager import SecretsManager
 
-'''
-Wrapper file for config management for script_runner.
-'''
 
 class ConfigWrapper:
+    """
+    Wrapper file for config management for script_runner.
+    """
 
     @staticmethod
-    def sm_conf(project_name='maximilian', team_name='data'):
+    def sm_conf(project_name="maximilian", team_name="data"):
         """
         Simple config wrapper for using secrets manager.
         """
@@ -21,8 +21,11 @@ class ConfigWrapper:
             "-c",
             "--config",
             default="core",
-            help="""whether to use secret_manager or datacoco_core to retrieve secrets""",
-            choices=['secret_manager', 'core']
+            help="""
+                whether to use secret_manager or
+                datacoco_core to retrieve secrets
+                """,
+            choices=["secret_manager", "core"],
         )
 
         return parser
@@ -41,4 +44,3 @@ class ConfigWrapper:
         port = conf[args.database]["port"]
 
         return db_name, host, user, password, port
-
