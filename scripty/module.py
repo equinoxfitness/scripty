@@ -5,12 +5,12 @@ from datacoco_batch import Batch
 from datacoco_db.pg_tools import PGInteraction
 from pathlib import Path
 from scripty.config_wrapper import ConfigWrapper
+
 class ScriptRunner:
     """
     Generic class for execution of a parameterized script in postgres or redshift.
     """
     def __init__(self, db_name, host, user, password, port):
-
         self.pg = PGInteraction(
             dbname=db_name,
             host=host,
@@ -102,6 +102,8 @@ class ScriptRunner:
         if batch_id:
             paramset["batch_id"] = batch_id
 
+        print(paramset)
+
         # now defaults for special metadata fields
         if paramset.get("from_date") is None:
             paramset["from_date"] = "1776-07-04"
@@ -117,12 +119,12 @@ class ScriptRunner:
         sql_message = "\n\n--sql script start:\n" + sql + "\n--sql script end\n\n"
         logger.l(sql_message)
 
-        self.pg.batchOpen()
+        self.pg.batch_open()
 
         logger.l("starting script")
         try:
             self.pg.exec_sql(sql)
-            self.pg.batchCommit()
+            self.pg.batch_commit()
             logger.l("batch commit")
         except Exception as e:
             logger.l("execution failed with error: " + str(e))
@@ -149,6 +151,7 @@ if __name__ == "__main__":
         help="""db alias from etl.cfg, default is cosmo """,
         default="cosmo",
     )
+
     parser.add_argument("-f", "--from_date", help="""from_date""", default=None)
     parser.add_argument("-t", "--to_date", help="""to_date""", default=None)
     parser.add_argument("-b", "--batch_id", help="""enter batch id """, default=None)
@@ -165,7 +168,11 @@ if __name__ == "__main__":
 
     (db_name, host, user, password, port) = ConfigWrapper.process_config(args)
 
-    ScriptRunner(db_name, host, user, password, port).run_script(
+    ScriptRunner(db_name,
+                 host,
+                 user,
+                 password,
+                 port).run_script(
         args.script,
         args.from_date,
         args.to_date,
