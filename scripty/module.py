@@ -14,7 +14,7 @@ class ScriptRunner:
     in postgres or redshift.
     """
 
-    def __init__(self, db_name, host, user, password, port):
+    def __init__(self, db_name, host, user, password, port, test=False):
         self.pg = PGInteraction(
             dbname=db_name,
             host=host,
@@ -23,7 +23,8 @@ class ScriptRunner:
             port=port,
             schema="public",
         )
-        self.pg.conn()
+        if not test:
+            self.pg.conn()
 
     @staticmethod
     def expand_params(sql, params):
