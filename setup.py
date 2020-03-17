@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 requires = [
     "datacoco-core==0.1.1",
-    "datacoco-db==0.1.5",
+    "datacoco-db==0.1.7",
     "datacoco-batch==0.1.0",
     "datacoco-secretsmanager==0.1.3",
 ]
@@ -25,6 +25,7 @@ setup(
     long_description=open("README.rst").read(),
     author="Equinox Fitness",
     install_requires=requires,
+    scripts=['bin/scripty'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
