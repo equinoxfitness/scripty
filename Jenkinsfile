@@ -24,7 +24,7 @@ pipeline{
 
                 echo "coverage"
 
-                sh "pip install -r requirements_dev.txt"
+                sh "pip install -r requirements-dev.txt"
                 sh "black --check scripty tests"
                 sh "pip install coverage codacy-coverage"
                 sh "coverage run -m unittest discover tests -v"
