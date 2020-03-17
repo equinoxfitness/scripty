@@ -6,6 +6,7 @@ from datacoco_batch import Batch
 from datacoco_db.pg_tools import PGInteraction
 from pathlib import Path
 from scripty.config_wrapper import ConfigWrapper
+from scripty import DEFAULT_FROM_DATE
 
 
 class ScriptRunner:
@@ -118,7 +119,7 @@ class ScriptRunner:
 
         # now defaults for special metadata fields
         if paramset.get("from_date") is None:
-            paramset["from_date"] = "1776-07-04"
+            paramset["from_date"] = DEFAULT_FROM_DATE
         if paramset.get("to_date") is None:
             paramset["to_date"] = "9999-12-31"
         if paramset.get("batch_id") is None:
@@ -145,8 +146,7 @@ class ScriptRunner:
             raise RuntimeError(e)
             # os._exit(1) #this truncates logout in rundeck
 
-
-if __name__ == "__main__":
+def main(args):
     # argparse
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -184,7 +184,7 @@ if __name__ == "__main__":
 
     parser = ConfigWrapper.extend_parser(parser)
 
-    args = parser.parse_args()
+    args = parser.parse_args(args)
 
     (db_name, host, user, password, port) = ConfigWrapper.process_config(args)
 
@@ -196,3 +196,6 @@ if __name__ == "__main__":
         args.parameters,
         args.batchy_job,
     )
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
