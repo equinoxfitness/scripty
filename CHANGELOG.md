@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+
+
+## [0.1.1] - 2020-03-17
+### Added
     - Add unit tests
+    - Add default from date
 
 ## [0.1.0] - 2020-03-11
 ### Changed
