@@ -15,7 +15,7 @@ class ScriptRunner:
     in postgres or redshift.
     """
 
-    def __init__(self, db_name, host, user, password, port, test=False):
+    def __init__(self, db_name, host, user, password, port, batchy_server, batchy_port, test=False):
         self.pg = PGInteraction(
             dbname=db_name,
             host=host,
@@ -24,6 +24,10 @@ class ScriptRunner:
             port=port,
             schema="public",
         )
+
+        self.batchy_server = batchy_server
+        self.batchy_port = batchy_port
+
         if not test:
             self.pg.conn()
 
@@ -89,8 +93,8 @@ class ScriptRunner:
                 job = "global"
             batchy_params = Batch(
                 wf,
-                server=self.conf["batchy"]["server"],
-                port=self.conf["batchy"]["port"],
+                server=self.batchy_server,
+                port=self.batchy_port,
             ).get_status()
             paramset.update(batchy_params[job])
 
@@ -186,9 +190,9 @@ def main(args):
 
     args = parser.parse_args(args)
 
-    (db_name, host, user, password, port) = ConfigWrapper.process_config(args)
+    (db_name, host, user, password, port, batchy_server, batchy_port) = ConfigWrapper.process_config(args)
 
-    ScriptRunner(db_name, host, user, password, port).run_script(
+    ScriptRunner(db_name, host, user, password, port, batchy_server, batchy_port).run_script(
         args.script,
         args.from_date,
         args.to_date,
