@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 
+## [0.1.2] - 2020-03-18
+### Changed
+    - Added documentation how to use config manager
+    - Secret manager config parameter
+    - Fix issue when getting Batch config
 
 ## [0.1.1] - 2020-03-17
 ### Added
@@ -21,5 +26,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - Config Management
     - Batch Control
 
+[0.1.2]: https://github.com/equinoxfitness/scripty/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/equinoxfitness/scripty/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/equinoxfitness/scripty/releases/tag/v0.1.0

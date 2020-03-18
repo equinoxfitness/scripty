@@ -12,6 +12,8 @@ class TestScriptRunner(unittest.TestCase):
             user="user",
             password="password",
             port=5439,
+            batchy_server="batchy_server",
+            batchy_port="1111",
             test=True,
         )
         cls.sql = """

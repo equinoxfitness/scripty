@@ -1,4 +1,4 @@
 datacoco-core==0.1.1
 datacoco-db==0.1.7
-datacoco-batch==0.1.0
-datacoco-secretsmanager==0.1.3
+datacoco-batch==0.1.1
+datacoco-secretsmanager==0.1.4
