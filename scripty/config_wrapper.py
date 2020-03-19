@@ -31,7 +31,7 @@ class ConfigWrapper:
         parser.add_argument(
             "-smp",
             "--secret_project_name",
-            default="maximilian3",
+            default="Maximilian3",
             help="""
                 secret manager project group
                 """
