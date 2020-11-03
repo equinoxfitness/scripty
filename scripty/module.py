@@ -81,22 +81,27 @@ class ScriptRunner:
         # first we retrive params  we will load these into dict first,
         # any additional params specified will override
         if batchy_job:
-            wf = batchy_job.split(".")[0]
             try:
-                job = (
-                    batchy_job.split(".")[1]
-                    if len(batchy_job.split(".")[1]) > 0
-                    else "global"
-                )
+                batchy_params = Batch(
+                    batchy_job,
+                    server=self.batchy_server,
+                    port=self.batchy_port,
+                ).get_status()
             except Exception as e:
-                logger.l(e)
-                job = "global"
-            batchy_params = Batch(
-                wf,
-                server=self.batchy_server,
-                port=self.batchy_port,
-            ).get_status()
-            paramset.update(batchy_params[job])
+                logger.l(str(e))
+                raise Exception(str(e))
+
+            if batchy_params is None:
+                error = "Unable to connect to batchy"
+                logger.l(error)
+                raise Exception(error)
+
+            if 'error' in batchy_params:
+                error = f"Batchy encountered an error: {batchy_params['message']}"
+                logger.l(error)
+                raise Exception(error)
+
+            paramset.update(batchy_params['global'])
 
         # next we apply custom params and special metadata fields,
         # again this will overrite batchy params if specified
